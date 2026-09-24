@@ -7,9 +7,14 @@
 
 
 async function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(800, 600);
+  
 }
 
 function draw() {
-  background(220);
+  background(10, 10, 30);
+  circle(100, 100, 5);
 }
+
+
+
