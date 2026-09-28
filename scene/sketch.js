@@ -4,35 +4,34 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
+let spaceship;
+let spaceshipScaleX = 0.2;
+let spaceshipScaleY = 0.2;
 let x, y, w, h, speed;
-let i, d;
 
 async function setup() {
-  createCanvas(800, 600);
-  x = 400;
-  y = 450;
+  createCanvas(windowWidth, windowHeight);
+  imageMode(CENTER);
+  spaceship = await loadImage("spaceship.pod_.1.png");
+  x = windowWidth/2;
+  y = windowHeight/1.5;
   w = 30;
   h = 60;
-  speed = 3;
-  i = 0; 
-  d = 5; 
+  speed = 5; 
 }
 
 function draw() {
   background(10, 10, 30);
   showCharacter();
   moveCharacter();
-  drawStar();
 }
 
+
 function showCharacter() {
-  fill("blue");
-  rect(x, y, w, h);
+  image(spaceship, x, y, spaceship.Width * spaceshipScaleX, spaceship.height * spaceshipScaleY);
 }
 
 function moveCharacter() {
-  x < 800;
-  y < 600;
   if (keyIsDown("w") || keyIsDown(UP_ARROW)) {
     y -= speed;
   }
@@ -47,10 +46,3 @@ function moveCharacter() {
   }
 }
 
-function drawStar() {
-  while ( i < 50) {
-    i = i +1;
-    fill("white");
-    circle(random(0, 800), random(0, 600), d);
-  }
-}
