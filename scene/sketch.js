@@ -5,8 +5,8 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 let spaceship;
-let spaceshipScaleX = 0.2;
-let spaceshipScaleY = 0.2;
+let spaceshipScaleX = 0.15;
+let spaceshipScaleY = 0.15;
 let x, y, w, h, speed;
 
 async function setup() {
@@ -17,7 +17,7 @@ async function setup() {
   y = windowHeight/1.5;
   w = 30;
   h = 60;
-  speed = 5; 
+  speed = 10;
 }
 
 function draw() {
@@ -25,7 +25,6 @@ function draw() {
   showCharacter();
   moveCharacter();
 }
-
 
 function showCharacter() {
   image(spaceship, x, y, spaceship.Width * spaceshipScaleX, spaceship.height * spaceshipScaleY);
@@ -45,4 +44,3 @@ function moveCharacter() {
     x -= speed;
   }
 }
-
