@@ -44,3 +44,4 @@ function moveCharacter() {
     x -= speed;
   }
 }
+
