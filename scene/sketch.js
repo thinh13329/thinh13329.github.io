@@ -8,6 +8,10 @@ let spaceship;
 let spaceshipScaleX = 0.15;
 let spaceshipScaleY = 0.15;
 let x, y, w, h, speed;
+let bulletX = 0;
+let bulletY = 0;
+let bulletSpeed = 8;
+let bulletActive = false;
 
 async function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -24,6 +28,7 @@ function draw() {
   background(10, 10, 30);
   showCharacter();
   moveCharacter();
+  shootBullet();
 }
 
 function showCharacter() {
@@ -45,3 +50,11 @@ function moveCharacter() {
   }
 }
 
+function shootBullet() {
+  if (keyIsDown("v") || keyIsDown( )) {
+    fill("red");
+    circle(x, y, 5);
+    y -= speed;
+    
+  }
+}
