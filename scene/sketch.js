@@ -8,10 +8,8 @@ let spaceship;
 let spaceshipScaleX = 0.15;
 let spaceshipScaleY = 0.15;
 let x, y, w, h, speed;
-let bulletX = 0;
-let bulletY = 0;
+let bullets = [];
 let bulletSpeed = 8;
-let bulletActive = false;
 
 async function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -22,12 +20,15 @@ async function setup() {
   w = 30;
   h = 60;
   speed = 10;
+  
 }
 
 function draw() {
   background(10, 10, 30);
   showCharacter();
   moveCharacter();
+  drawBullet();
+  moveBullet();
   shootBullet();
 }
 
@@ -50,11 +51,25 @@ function moveCharacter() {
   }
 }
 
+function drawBullet() {
+  fill("red");
+  for (let bullet of bullets) {
+    rect(bullet.x, bullet.y, 5, 15);
+  }
+}
+
+function moveBullet() {
+  for (let bullet of bullets) {
+    bullet.y -= bulletSpeed;
+  }
+  bullets = bullets.filter(bullet => bullet.y > -20);
+}
+
 function shootBullet() {
-  if (keyIsDown("v") || keyIsDown( )) {
-    fill("red");
-    circle(x, y, 5);
-    y -= speed;
-    
+  if (keyIsDown("t")) {
+    bullets.push({
+      x: x + w / 2,
+      y: y
+    });
   }
 }
