@@ -10,6 +10,7 @@ let spaceshipScaleY = 0.15;
 let x, y, w, h, speed;
 let bullets = [];
 let bulletSpeed = 8;
+let enemies = [];
 
 async function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -19,8 +20,7 @@ async function setup() {
   y = windowHeight/1.5;
   w = 30;
   h = 60;
-  speed = 10;
-  
+  speed = 10; 
 }
 
 function draw() {
@@ -30,6 +30,9 @@ function draw() {
   drawBullet();
   moveBullet();
   shootBullet();
+  createEnemies();
+  drawEnemies();
+  checkBulletEnemyCollision();
 }
 
 function showCharacter() {
@@ -71,5 +74,38 @@ function shootBullet() {
       x: x + w / 2,
       y: y
     });
+  }
+}
+
+function createEnemies () {
+  enemies.push({
+    x: random(50, width - 50),
+    y: 50,
+    w: 40,
+    h: 40
+  });
+}
+
+function drawEnemies() {
+  fill("red");
+  for (let enemy of enemies) {
+    rect(enemy.x, enemy.y, enemy.w, enemy.h);
+  }
+}
+
+function checkBulletEnemyCollision() {
+  for (let i = bullets.length - 1; i >= 0; i --) {
+    for (let j = enemies.length - 1; j >= 0; j --) {
+      if (
+        bullets[i].x < enemies[j].x + enemies[j].w &&
+        bullets[i].x + 5 > enemies[j].x &&
+        bullets[i].y < enemies[j].y + enemies[j].h &&
+        bullets[i].y + 15 > enemies[j].y
+      ) {
+        bullets.splice(i, 1);
+        enemies.splice(j, 1);
+        break;
+      }
+    }
   }
 }
