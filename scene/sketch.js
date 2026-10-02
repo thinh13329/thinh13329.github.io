@@ -32,16 +32,16 @@ async function setup() {
 function draw() {
   background(10, 10, 30);
   if (gameState === "playing") {
-  showCharacter();
-  moveCharacter();
-  drawBullet();
-  moveBullet();
-  shootBullet();
-  drawEnemies();
-  checkBulletEnemyCollision();
-  moveEnemies();
-  spawnEnemies();
-  drawScore();
+    showCharacter();
+    moveCharacter();
+    drawBullet();
+    moveBullet();
+    shootBullet();
+    drawEnemies();
+    checkBulletEnemyCollision();
+    moveEnemies();
+    spawnEnemies();
+    drawScore();
   }
   if (gameState === "gameover") {
     drawGameOver();
@@ -62,7 +62,7 @@ function moveCharacter() {
 }
 
 function drawBullet() {
-  fill("red");
+  fill("yellow");
   for (let bullet of bullets) {
     rect(bullet.x, bullet.y, 5, 15);
   }
@@ -79,11 +79,11 @@ function shootBullet() {
   if (mouseIsPressed === true) {
     if (shootState === "ready") {
       bullets.push({
-      x: x + w / 2,
-      y: y
-    });
-    State = "cooldown";
-    shootTimer = 10;
+        x: x + w / 2,
+        y: y
+      });
+      State = "cooldown";
+      shootTimer = 10;
     }
     if (shootState === "cooldown") {
       shootTimer--;
@@ -114,9 +114,7 @@ function drawEnemies() {
 
 function checkBulletEnemyCollision() {
   for (let i = bullets.length - 1; i >= 0; i--) {
-
     for (let j = enemies.length - 1; j >= 0; j--) {
-
       if (
         bullets[i].x < enemies[j].x + enemies[j].w &&
         bullets[i].x + 5 > enemies[j].x &&
