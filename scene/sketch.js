@@ -12,10 +12,11 @@ let bullets = [];
 let bulletSpeed = 20;
 let enemies = [];
 let score = 0;
-let gameState = "playing";
+let gameState = "start";
 let spawnTimer = 0;
 let shootState = "ready";
 let shootTimer;
+
 
 async function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -31,7 +32,7 @@ async function setup() {
 
 function draw() {
   background(10, 10, 30);
-  if (gameState === "playing") {
+  if (gameState === "start") {
     showCharacter();
     moveCharacter();
     drawBullet();
@@ -42,9 +43,9 @@ function draw() {
     moveEnemies();
     spawnEnemies();
     drawScore();
-  }
   if (gameState === "gameover") {
     drawGameOver();
+    }
   }
 }
 
@@ -154,13 +155,4 @@ function drawScore() {
   fill("white");
   textSize(24);
   text("score: " + score, 20, 30);
-}
-
-function drawGameOver() {
-  fill("white");
-  textAlign(CENTER, CENTER);
-  textSize(50);
-  text("GAME OVER", width / 2, height / 2);
-  textSize(25);
-  text("Score: " + score, width / 2, height / 2 + 50);
 }
