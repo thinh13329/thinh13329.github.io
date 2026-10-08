@@ -8,6 +8,7 @@
 - [traffic light](05-trafficlight)
 - [bouncing Circles](06-circle-bounce)
 - [Perlin Noise](07-noise)
+- [Terrain Generation](08-terrain)
 
 ## Projects
 - [Interactive Scene](scene)
