@@ -24,14 +24,14 @@ function draw() {
 function drawRoad() {
   //road
   fill(60);
-  Rect(150, 0, 300, 600);
+  rect(150, 0 , 300, 600);
 
   //road lines
   stroke(255);
   strokeWeight(4);
 
   for (let y = 0; y < height; y += 80) {
-  line(300, y, 300, y + 40);
+    line(300, y, 300, y + 40);
   }
 
   noStroke();
