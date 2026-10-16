@@ -9,6 +9,7 @@ let playerY = 500;
 let playerW = 40;
 let playerH = 70;
 playerSpeed = 5;
+let cars = [];
 
 async function setup() {
   createCanvas(600, 600);
@@ -19,6 +20,8 @@ function draw() {
 
   drawRoad();
   drawPlayer();
+  createCar();
+  drawCars();
 }
 
 function drawRoad() {
@@ -46,4 +49,30 @@ function drawPlayer() {
     playerW,
     playerH
   );
+}
+
+function createCar() {
+  let car = {
+    x: 220,
+    y: 50,
+    speed: 3,
+    w: 40,
+    h: 70
+  };
+
+  cars.push(car);
+
+}
+
+function drawCars() {
+  fill('red');
+  
+  for (let car of cars) {
+    rect(
+      car.x - car.w / 2,
+      car.y - car.h / 2,
+      car.w,
+      car.h
+    );
+  }
 }
