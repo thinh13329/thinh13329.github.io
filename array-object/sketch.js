@@ -10,6 +10,7 @@ let playerW = 40;
 let playerH = 70;
 playerSpeed = 5;
 let cars = [];
+let spawnTimmer = 0;
 
 async function setup() {
   createCanvas(600, 600);
@@ -22,6 +23,9 @@ function draw() {
   drawPlayer();
   createCar();
   drawCars();
+  moveCars();
+  removeOffscreenCars();
+  spawnCars();
 }
 
 function drawRoad() {
@@ -52,10 +56,12 @@ function drawPlayer() {
 }
 
 function createCar() {
+  let landpositions = [200, 250, 350, 400];
+
   let car = {
-    x: 220,
-    y: 50,
-    speed: 3,
+    x: random(landpositions),
+    y: -50,
+    speed: random(3, 6),
     w: 40,
     h: 70
   };
@@ -74,5 +80,26 @@ function drawCars() {
       car.w,
       car.h
     );
+  }
+}
+
+function moveCars() {
+  for (let car of cars) {
+    car.y += car.sped;
+  }
+}
+
+function removeOffscreenCars() {
+  cars = cars.filter(function(car) {
+    return car.y < height + car.h;
+  });
+}
+
+function spawnCars() {
+  spawnTimmer++;
+  
+  if (spawnTimmer >= 60) {
+    createCar();
+    spawnTimmer = 0;
   }
 }
