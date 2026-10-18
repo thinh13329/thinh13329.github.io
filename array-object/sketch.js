@@ -11,6 +11,8 @@ let playerH = 70;
 playerSpeed = 5;
 let cars = [];
 let spawnTimmer = 0;
+let gameState = "playing";
+let score = 0;
 
 async function setup() {
   createCanvas(600, 600);
@@ -18,9 +20,9 @@ async function setup() {
 
 function draw() {
   background(50, 140, 60);
-
   drawRoad();
   drawPlayer();
+  movePlayer();
   createCar();
   drawCars();
   moveCars();
@@ -55,6 +57,22 @@ function drawPlayer() {
   );
 }
 
+function movePlayer() {
+  if (keyIsDown("a") || keyIsDown(LEFT_ARROW)) {
+    playerX -= playerSpeed;
+  }
+  if (keyIsDown("d") || keyIsDown(RIGHT_ARROW)) {
+    playerX += playerSpeed;
+  }
+  if (playerX < 170) {
+    playerX = 170;
+  }
+  if (playerX > 430) {
+    playerX = 430;
+  }
+}
+
+
 function createCar() {
   let landpositions = [200, 250, 350, 400];
 
@@ -85,7 +103,7 @@ function drawCars() {
 
 function moveCars() {
   for (let car of cars) {
-    car.y += car.sped;
+    car.y += car.speed;
   }
 }
 
