@@ -20,14 +20,26 @@ async function setup() {
 
 function draw() {
   background(50, 140, 60);
+  
   drawRoad();
-  drawPlayer();
-  movePlayer();
-  createCar();
-  drawCars();
-  moveCars();
-  removeOffscreenCars();
-  spawnCars();
+
+  if (gameState === "playing") {
+    spawnCars();
+    movePlayer();
+    moveCars();
+    removeOffscreenCars();
+
+    checkCollision();
+
+    drawCars();
+    drawPlayer();
+    drawScore();
+  }
+  else if (gameState === "gameover") {
+    drawCars();
+    drawPlayer();
+    drawGameOver();
+  }
 }
 
 function drawRoad() {
@@ -109,7 +121,11 @@ function moveCars() {
 
 function removeOffscreenCars() {
   cars = cars.filter(function(car) {
-    return car.y < height + car.h;
+    if (car.y - car.h / 2 > height) {
+      score++;
+      return false;
+    }
+    return true;
   });
 }
 
@@ -120,4 +136,50 @@ function spawnCars() {
     createCar();
     spawnTimmer = 0;
   }
+}
+
+
+function checkCollision() {
+  for (let car of cars) {
+    let playerLeft = playerX - playerW / 2;
+    let playerRight = playerX + playerW / 2;
+    let playerTop = playerY - playerH / 2;
+    let playerBottom = playerY + playerH / 2;
+
+    let carLeft = car.x - car.w / 2;
+    let carRight = car.x + car.w / 2;
+    let carTop = car.y - car.h / 2;
+    let carBottom = car.y + car.h / 2;
+
+    if (
+      playerRight > carLeft &&
+      playerLeft < carRight &&
+      playerBottom > carTop &&
+      playerTop < carBottom
+    ) {
+      gameState = "gameover";
+    }
+  }
+}
+
+function drawScore() {
+  fill("white");
+  textSize(24);
+  textAlign(LEFT, TOP);
+  text("score: " + score, 20, 20);
+}
+
+
+function drawGameOver() {
+  fill("white");
+  textAlign(CENTER, CENTER);
+
+  textSize(45);
+  text("GAME OVER", width / 2, height / 2 - 50);
+
+  textSize(25);
+  text("Final Score: " + score, width / 2, height / 2);
+
+  textSize(18);
+  text("Press R to restart", width / 2, height / 2 + 50);
 }
