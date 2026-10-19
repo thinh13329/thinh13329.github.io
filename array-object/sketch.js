@@ -34,11 +34,13 @@ function draw() {
     drawCars();
     drawPlayer();
     drawScore();
+    keyPressed();
   }
   else if (gameState === "gameover") {
     drawCars();
     drawPlayer();
     drawGameOver();
+    
   }
 }
 
@@ -182,4 +184,21 @@ function drawGameOver() {
 
   textSize(18);
   text("Press R to restart", width / 2, height / 2 + 50);
+}
+
+function keyPressed() {
+  if (gameState === "gameover" && key === "r" || key === "R") {
+    resetGame();
+  }
+}
+
+function resetGame() {
+  cars = [];
+  score = 0;
+  spawnTimmer = 0;
+
+  playerX = 300;
+  playerY = 500;
+
+  gameState = "playing";
 }
