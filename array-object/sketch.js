@@ -13,6 +13,7 @@ let cars = [];
 let spawnTimmer = 0;
 let gameState = "start";
 let score = 0;
+let roadOffSet = 0;
 
 async function setup() {
   createCanvas(600, 600);
@@ -20,8 +21,6 @@ async function setup() {
 
 function draw() {
   background(50, 140, 60);
-  
-  
   drawRoad();
   
   if (gameState === "start") {
@@ -29,6 +28,7 @@ function draw() {
   }
 
   else if (gameState === "playing") {
+    roadOffSet = (roadOffSet + 5 ) % 80;
     spawnCars();
     movePlayer();
     moveCars();
@@ -45,7 +45,6 @@ function draw() {
     drawCars();
     drawPlayer();
     drawGameOver();
-    
   }
 }
 
@@ -58,12 +57,11 @@ function drawRoad() {
   stroke(255);
   strokeWeight(4);
 
-  for (let y = 0; y < height; y += 80) {
+  for (let y = -80 + roadOffSet; y < height; y += 80) {
     line(300, y, 300, y + 40);
   }
 
   noStroke();
-
 }
 
 function drawPlayer() {
@@ -90,7 +88,6 @@ function movePlayer() {
     playerX = 430;
   }
 }
-
 
 function createCar() {
   let landpositions = [200, 250, 350, 400];
@@ -145,7 +142,6 @@ function spawnCars() {
   }
 }
 
-
 function checkCollision() {
   for (let car of cars) {
     let playerLeft = playerX - playerW / 2;
@@ -175,7 +171,6 @@ function drawScore() {
   textAlign(LEFT, TOP);
   text("score: " + score, 20, 20);
 }
-
 
 function drawGameOver() {
   fill("white");
