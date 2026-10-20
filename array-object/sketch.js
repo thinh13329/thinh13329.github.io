@@ -11,7 +11,7 @@ let playerH = 70;
 playerSpeed = 5;
 let cars = [];
 let spawnTimmer = 0;
-let gameState = "playing";
+let gameState = "start";
 let score = 0;
 
 async function setup() {
@@ -21,20 +21,25 @@ async function setup() {
 function draw() {
   background(50, 140, 60);
   
+  
   drawRoad();
+  
+  if (gameState === "start") {
+    drawStartScreen();
+  }
 
-  if (gameState === "playing") {
+  else if (gameState === "playing") {
     spawnCars();
     movePlayer();
     moveCars();
     removeOffscreenCars();
-
     checkCollision();
 
     drawCars();
     drawPlayer();
     drawScore();
     keyPressed();
+    
   }
   else if (gameState === "gameover") {
     drawCars();
@@ -201,4 +206,27 @@ function resetGame() {
   playerY = 500;
 
   gameState = "playing";
+}
+
+function drawStartScreen() {
+  fill("white");
+  textAlign(CENTER, CENTER);
+
+  textSize(40);  
+  text("TRAFFIC DODGE", width / 2, height / 2 - 60);
+
+  textSize(20);  
+  text("Avoid the red cars!", width / 2, height / 2);  
+
+  textSize(24);  
+  text("Click to Start", width / 2, height / 2 + 60);    
+}
+
+function mousePressed() {
+  if (gameState === "start") {
+    gameState = "playing";
+  }
+  else if (gameState === "gameover") {
+    resetGame();
+  }
 }
