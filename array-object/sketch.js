@@ -218,11 +218,18 @@ function drawStartScreen() {
   fill("white");
   textAlign(CENTER, CENTER);
   textSize(40);  
-  text("TRAFFIC DODGE", width / 2, height / 2 - 60);
+  text("TRAFFIC DODGE", width / 2, height / 2 - 100);
   textSize(20);  
-  text("Avoid the red cars!", width / 2, height / 2);  
+  text("Avoid the red cars!", width / 2, height / 2 - 55);
+  //controls
+  textSize(18);
+  text("CONTROLS", width / 2, height / 2 - 5);
+  text("LEFT / RIGHT ARROW", width / 2, height / 2 + 25);
+  text("or A / D to move", width / 2, height / 2 + 50);
+  text("Avoid cars and earn points!", width / 2, height / 2 + 85);  
   textSize(24);  
-  text("Click to Start", width / 2, height / 2 + 60);    
+  text("Click to Start", width / 2, height / 2 + 135);
+
 }
 
 function mousePressed() {
