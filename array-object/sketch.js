@@ -67,7 +67,15 @@ function drawPlayer() {
   //car body
   fill(30, 150 , 255);
   rect(playerX - 20, playerY - 35, 40, 70, 8);
+  // Windows
+  fill(180, 230, 255);
+  rect(playerX - 14, playerY - 20, 28, 18, 5);
+  rect(playerX - 14, playerY + 5, 28, 13, 4);
 
+  // Headlights
+  fill(255, 255, 120);
+  rect(playerX - 15, playerY - 34, 8, 4, 2);
+  rect(playerX + 7, playerY - 34, 8, 4, 2);
 }
 
 function movePlayer() {
@@ -87,6 +95,12 @@ function movePlayer() {
 
 function createCar() {
   let landpositions = [200, 250, 350, 400];
+  let laneX = random(landpositions);
+  for (let car of cars) {
+    if (car.x === laneX && car.y < 120) {
+      return;   //don't spawn too close
+    }
+  }
   let car = {
     x: random(landpositions),
     y: -50,
@@ -100,12 +114,23 @@ function createCar() {
 function drawCars() {
   fill('red');
   for (let car of cars) {
-    rect(
-      car.x - car.w / 2,
-      car.y - car.h / 2,
-      car.w,
-      car.h
-    );
+    // Wheels
+    fill(20);
+    rect(car.x - 24, car.y - 25, 8, 20, 3);
+    rect(car.x + 16, car.y - 25, 8, 20, 3);
+    rect(car.x - 24, car.y + 10, 8, 20, 3);
+    rect(car.x + 16, car.y + 10, 8, 20, 3);
+    // Car body
+    fill(220, 45, 45);
+    rect(car.x - 20, car.y - 35, 40, 70, 8);
+    // Windows
+    fill(255, 200, 200);
+    rect(car.x - 14, car.y - 20, 28, 18, 5);
+    rect(car.x - 14, car.y + 5, 28, 13, 4);
+    // Rear lights
+    fill(255, 240, 100);
+    rect(car.x - 15, car.y + 30, 8, 4, 2);
+    rect(car.x + 7, car.y + 30, 8, 4, 2);
   }
 }
 
