@@ -71,7 +71,6 @@ function drawPlayer() {
   fill(180, 230, 255);
   rect(playerX - 14, playerY - 20, 28, 18, 5);
   rect(playerX - 14, playerY + 5, 28, 13, 4);
-
   // Headlights
   fill(255, 255, 120);
   rect(playerX - 15, playerY - 34, 8, 4, 2);
@@ -97,14 +96,14 @@ function createCar() {
   let landpositions = [200, 250, 350, 400];
   let laneX = random(landpositions);
   for (let car of cars) {
-    if (car.x === laneX && car.y < 120) {
+    if (car.x === laneX && car.y < 130) {
       return;   //don't spawn too close
     }
   }
   let car = {
     x: random(landpositions),
     y: -50,
-    speed: random(3, 6),
+    speed: random(4, 6),
     w: 40,
     h: 70
   };
@@ -229,7 +228,6 @@ function drawStartScreen() {
   text("Avoid cars and earn points!", width / 2, height / 2 + 85);  
   textSize(24);  
   text("Click to Start", width / 2, height / 2 + 135);
-
 }
 
 function mousePressed() {
