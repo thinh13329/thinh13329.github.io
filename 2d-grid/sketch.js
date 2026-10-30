@@ -1,5 +1,5 @@
 // 2d grid assignment
-// Hung Hung Thinh
+// Hung Thinh
 // Oct 29, 2026
 //
 // Extra for Experts:

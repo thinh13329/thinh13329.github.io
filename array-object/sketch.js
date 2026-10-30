@@ -179,7 +179,7 @@ function checkCollision() {
     }
   }
 }
-
+  
 function drawScore() {
   fill("white");
   textSize(24);
