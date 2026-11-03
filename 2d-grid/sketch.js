@@ -5,11 +5,13 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let playerX = 300;
-let playerY = 500;
-let playerW = 40;
-let playerH = 70;
-playerSpeed = 5;
+let player = {
+  x: 300,
+  y: 500,
+  w: 40,
+  h: 70,
+  speed: 5
+};
 let cars = [];
 let spawnTimmer = 0;
 let gameState = "start";
@@ -36,7 +38,6 @@ function draw() {
     drawCars();
     drawPlayer();
     drawScore();
-    keyPressed();
   }
   else if (gameState === "gameover") {
     drawCars();
@@ -61,35 +62,35 @@ function drawRoad() {
 function drawPlayer() {
   //wheels
   fill(20);
-  rect(playerX -24, playerY - 25, 8, 20, 3);
-  rect(playerX + 16, playerY - 25, 8, 20, 3);
-  rect(playerX - 24, playerY + 10, 8, 20, 3);
-  rect(playerX + 16, playerY + 10, 8, 20, 3);
+  rect(player.x -24, player.y - 25, 8, 20, 3);
+  rect(player.x + 16, player.y - 25, 8, 20, 3);
+  rect(player.x - 24, player.y + 10, 8, 20, 3);
+  rect(player.x + 16, player.y + 10, 8, 20, 3);
   //car body
   fill(30, 150 , 255);
-  rect(playerX - 20, playerY - 35, 40, 70, 8);
+  rect(player.x - 20, player.y - 35, 40, 70, 8);
   // Windows
   fill(180, 230, 255);
-  rect(playerX - 14, playerY - 20, 28, 18, 5);
-  rect(playerX - 14, playerY + 5, 28, 13, 4);
+  rect(player.x - 14, player.y - 20, 28, 18, 5);
+  rect(player.x - 14, player.y + 5, 28, 13, 4);
   // Headlights
   fill(255, 255, 120);
-  rect(playerX - 15, playerY - 34, 8, 4, 2);
-  rect(playerX + 7, playerY - 34, 8, 4, 2);
+  rect(player.x - 15, player.y - 34, 8, 4, 2);
+  rect(player.x + 7, player.y - 34, 8, 4, 2);
 }
 
 function movePlayer() {
-  if (keyIsDown("a") || keyIsDown(LEFT_ARROW)) {
-    playerX -= playerSpeed;
+  if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) {
+    player.x -= player.speed;
   }
-  if (keyIsDown("d") || keyIsDown(RIGHT_ARROW)) {
-    playerX += playerSpeed;
+  if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) {
+    player.x += player.speed;
   }
-  if (playerX < 170) {
-    playerX = 170;
+  if (player.x < 170) {
+    player.x = 170;
   }
-  if (playerX > 430) {
-    playerX = 430;
+  if (player.x > 430) {
+    player.x = 430;
   }
 }
 
@@ -102,7 +103,7 @@ function createCar() {
     }
   }
   let car = {
-    x: random(landpositions),
+    x: laneX,
     y: -50,
     speed: random(4, 6),
     w: 40,
@@ -160,10 +161,10 @@ function spawnCars() {
 
 function checkCollision() {
   for (let car of cars) {
-    let playerLeft = playerX - playerW / 2;
-    let playerRight = playerX + playerW / 2;
-    let playerTop = playerY - playerH / 2;
-    let playerBottom = playerY + playerH / 2;
+    let playerLeft = player.x - player.w / 2;
+    let playerRight = player.x + player.w / 2;
+    let playerTop = player.y - player.h / 2;
+    let playerBottom = player.y + player.h / 2;
 
     let carLeft = car.x - car.w / 2;
     let carRight = car.x + car.w / 2;
@@ -200,7 +201,7 @@ function drawGameOver() {
 }
 
 function keyPressed() {
-  if (gameState === "gameover" && key === "r" || key === "R") {
+  if (gameState === "gameover" && (key === "r" || key === "R")) {
     resetGame();
   }
 }
@@ -209,8 +210,8 @@ function resetGame() {
   cars = [];
   score = 0;
   spawnTimmer = 0;
-  playerX = 300;
-  playerY = 500;
+  player.x = 300;
+  player.y = 500;
   gameState = "playing";
 }
 
