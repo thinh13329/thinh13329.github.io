@@ -93,7 +93,6 @@ function drawCar(x, y, bodyColor, lightY) {
     rect(x - 15, y + 29, 8, 5, 2);
     rect(x + 7, y + 29, 8, 5, 2);
   }
-  
 }
 
 function drawPlayer() {
