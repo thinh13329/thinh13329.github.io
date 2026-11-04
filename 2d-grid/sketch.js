@@ -17,9 +17,17 @@ let spawnTimmer = 0;
 let gameState = "start";
 let score = 0;
 let roadOffSet = 0;
+const CANVAS_WIDTH = 600;
+const CANVAS_HEIGHT = 600;
+const ROAD_X = 150;
+const ROAD_WIDTH = 300;
+const PLAYER_MIN_X = 170;
+const PLAYER_MAX_X = 430;
+const ROAD_LINE_GAP = 80;
+const SPAWN_INTERVAL = 60;
 
 async function setup() {
-  createCanvas(600, 600);
+  createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
 }
 
 function draw() {
@@ -53,32 +61,46 @@ function drawRoad() {
   //road lines
   stroke(255);
   strokeWeight(4);
-  for (let y = -80 + roadOffSet; y < height; y += 80) {
+  for (let y = -ROAD_LINE_GAP + roadOffSet; y < height; y += ROAD_LINE_GAP) {
     line(300, y, 300, y + 40);
   }
   noStroke();
 }
 
-function drawPlayer() {
-  //wheels
+function drawCar(x, y, bodyColor, lightY) {
+  //draw wheels
   fill(20);
-  rect(player.x -24, player.y - 25, 8, 20, 3);
-  rect(player.x + 16, player.y - 25, 8, 20, 3);
-  rect(player.x - 24, player.y + 10, 8, 20, 3);
-  rect(player.x + 16, player.y + 10, 8, 20, 3);
+  rect(x -24, y - 25, 8, 20, 3);
+  rect(x + 16, y - 25, 8, 20, 3);
+  rect(x - 24, y + 10, 8, 20, 3);
+  rect(x + 16, y + 10, 8, 20, 3);
   //car body
-  fill(30, 150 , 255);
-  rect(player.x - 20, player.y - 35, 40, 70, 8);
+  fill(bodyColor);
+  rect(x - 20, y - 35, 40, 70, 8);
   // Windows
   fill(180, 230, 255);
-  rect(player.x - 14, player.y - 20, 28, 18, 5);
-  rect(player.x - 14, player.y + 5, 28, 13, 4);
+  rect(x - 14, y - 20, 28, 18, 5);
+  rect(x - 14, y + 5, 28, 13, 4);
   // Headlights
   fill(255, 255, 120);
-  rect(player.x - 15, player.y - 34, 8, 4, 2);
-  rect(player.x + 7, player.y - 34, 8, 4, 2);
+  if (lightY < 0) {
+    //front lights
+    rect(x - 15, y - 34, 8, 5, 2);
+    rect(x + 7, y - 34, 8, 5, 2);
+  }
+  else {
+    // Rear lights
+    rect(x - 15, y + 29, 8, 5, 2);
+    rect(x + 7, y + 29, 8, 5, 2);
+  }
+  
 }
 
+function drawPlayer() {
+  drawCar(player.x, player.y, color(30, 150, 255), -34);
+}
+
+// Moves the player car based on keyboard input
 function movePlayer() {
   if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) {
     player.x -= player.speed;
@@ -94,6 +116,7 @@ function movePlayer() {
   }
 }
 
+// Creates a new enemy car and checks spawn distance
 function createCar() {
   let landpositions = [200, 250, 350, 400];
   let laneX = random(landpositions);
@@ -113,25 +136,8 @@ function createCar() {
 }
 
 function drawCars() {
-  fill('red');
   for (let car of cars) {
-    // Wheels
-    fill(20);
-    rect(car.x - 24, car.y - 25, 8, 20, 3);
-    rect(car.x + 16, car.y - 25, 8, 20, 3);
-    rect(car.x - 24, car.y + 10, 8, 20, 3);
-    rect(car.x + 16, car.y + 10, 8, 20, 3);
-    // Car body
-    fill(220, 45, 45);
-    rect(car.x - 20, car.y - 35, 40, 70, 8);
-    // Windows
-    fill(255, 200, 200);
-    rect(car.x - 14, car.y - 20, 28, 18, 5);
-    rect(car.x - 14, car.y + 5, 28, 13, 4);
-    // Rear lights
-    fill(255, 240, 100);
-    rect(car.x - 15, car.y + 30, 8, 4, 2);
-    rect(car.x + 7, car.y + 30, 8, 4, 2);
+    drawCar(car.x, car.y, color(220, 45, 45), 30);
   }
 }
 
@@ -159,6 +165,7 @@ function spawnCars() {
   }
 }
 
+// Checks if the player collides with an enemy car
 function checkCollision() {
   for (let car of cars) {
     let playerLeft = player.x - player.w / 2;
