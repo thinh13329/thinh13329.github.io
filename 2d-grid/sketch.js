@@ -25,6 +25,16 @@ const PLAYER_MIN_X = 170;
 const PLAYER_MAX_X = 430;
 const ROAD_LINE_GAP = 80;
 const SPAWN_INTERVAL = 60;
+let roadGrid = [
+  [0, 0, 0],
+  [0, 0, 0],
+  [0, 0, 0],
+  [0, 0, 0],
+  [0, 0, 0],
+  [0, 0, 0],
+  [0, 0, 0],
+  [0, 0, 0]
+];
 
 async function setup() {
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -245,4 +255,10 @@ function mousePressed() {
   else if (gameState === "gameover") {
     resetGame();
   }
+}
+
+function drawGridInfo() {
+  fill('white');
+  textSize(14);
+  textAlign(LEFT, TOP);
 }
