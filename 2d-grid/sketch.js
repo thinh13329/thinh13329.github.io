@@ -56,6 +56,7 @@ function draw() {
     drawCars();
     drawPlayer();
     drawScore();
+    drawGridInfo();
   }
   else if (gameState === "gameover") {
     drawCars();
@@ -261,4 +262,14 @@ function drawGridInfo() {
   fill('white');
   textSize(14);
   textAlign(LEFT, TOP);
+
+  for (let row = 0; row < roadGrid.length; row++) {
+    let rowText = "";
+
+    for (let col = 0; col < roadGrid[row].length; col++) {
+      rowText += roadGrid[row][col] + " ";
+    }
+
+    text(rowText, 470, 50 + row * 25);
+  }
 }
