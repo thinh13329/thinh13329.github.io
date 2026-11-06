@@ -57,6 +57,7 @@ function draw() {
     drawPlayer();
     drawScore();
     drawGridInfo();
+    updateDrawGrid();
   }
   else if (gameState === "gameover") {
     drawCars();
@@ -265,11 +266,35 @@ function drawGridInfo() {
 
   for (let row = 0; row < roadGrid.length; row++) {
     let rowText = "";
-
     for (let col = 0; col < roadGrid[row].length; col++) {
       rowText += roadGrid[row][col] + " ";
     }
-
     text(rowText, 470, 50 + row * 25);
+  }
+}
+
+function updateDrawGrid() {
+  //reset all grid cells to 0
+  for (let row = 0; row < roadGrid.length; row++) {
+    for (let col = 0; col < roadGrid[row].length; col++) {
+      roadGrid[row][col] = 0;
+    }
+  }
+  //make enemy car position in the grid
+  for (let car of cars) {
+    let row = floor((car.y + 50) / 75);
+    let col = 0;
+    if (car.x < 250) {
+      col = 0;
+    }
+    else if (car.x < 350) {
+      col = 1;
+    }
+    else {
+      col = 2;
+    }
+    if (row >= 0 && row < roadGrid.length) {
+      roadGrid[row][col] = 1;
+    }
   }
 }
