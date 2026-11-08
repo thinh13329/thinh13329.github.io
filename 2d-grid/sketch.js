@@ -58,6 +58,7 @@ function draw() {
     drawScore();
     drawGridInfo();
     updateDrawGrid();
+    isLaneClear();
   }
   else if (gameState === "gameover") {
     drawCars();
@@ -129,13 +130,23 @@ function movePlayer() {
 
 // Creates a new enemy car and checks spawn distance
 function createCar() {
-  let landpositions = [200, 250, 350, 400];
-  let laneX = random(landpositions);
-  for (let car of cars) {
-    if (car.x === laneX && car.y < 130) {
-      return;   //don't spawn too close
+  let lanepositions = [200, 300, 400];
+
+  let availableLanes = [];
+
+  for (let col = 0; col < 3; col++) {
+    if (isLaneClear(col)) {
+      availableLanes.push(col);
     }
   }
+
+  if (availableLanes.length === 0) {
+    return;
+  }
+
+  let seclectedLane = random(availableLanes);
+  let laneX = lanePositions(seclectedLane);
+
   let car = {
     x: laneX,
     y: -50,
@@ -297,4 +308,13 @@ function updateDrawGrid() {
       roadGrid[row][col] = 1;
     }
   }
+}
+
+function isLaneClear(col) {
+  for (let row = 0; row < 2; row++) {
+    if (roadGrid[row][col] === 1) {
+      return false;
+    }
+  }
+  return true;  
 }
