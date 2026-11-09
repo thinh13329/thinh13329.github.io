@@ -130,7 +130,7 @@ function movePlayer() {
 
 // Creates a new enemy car and checks spawn distance
 function createCar() {
-  let lanepositions = [200, 300, 400];
+  let lanePositions = [200, 300, 400];
 
   let availableLanes = [];
 
@@ -144,8 +144,8 @@ function createCar() {
     return;
   }
 
-  let seclectedLane = random(availableLanes);
-  let laneX = lanePositions(seclectedLane);
+  let selectedLane = random(availableLanes);
+  let laneX = lanePositions[selectedLane];
 
   let car = {
     x: laneX,
@@ -154,6 +154,7 @@ function createCar() {
     w: 40,
     h: 70
   };
+
   cars.push(car);
 }
 
