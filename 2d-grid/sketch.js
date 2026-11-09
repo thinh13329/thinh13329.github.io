@@ -243,6 +243,7 @@ function resetGame() {
   player.x = 300;
   player.y = 500;
   gameState = "playing";
+  resetRoadGrid();
 }
 
 function drawStartScreen() {
@@ -275,7 +276,6 @@ function drawGridInfo() {
   fill('white');
   textSize(14);
   textAlign(LEFT, TOP);
-
   for (let row = 0; row < roadGrid.length; row++) {
     let rowText = "";
     for (let col = 0; col < roadGrid[row].length; col++) {
@@ -318,4 +318,13 @@ function isLaneClear(col) {
     }
   }
   return true;  
+}
+
+//clear all cells in the 2D array
+function resetRoadGrid() {
+  for (let row = 0; row < roadGrid.length; row++) {
+    for (let col = 0; col < roadGrid[row]; col++) {
+      roadGrid[row][col] = 0;
+    }
+  }
 }
