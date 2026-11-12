@@ -322,3 +322,48 @@ function resetRoadGrid() {
     }
   }
 }
+
+// Displays the 2D array as a visual grid.
+function drawGridInfo() {
+  let startX = 465;
+  let startY = 120;
+  let cellW = 32;
+  let cellH = 32;
+  // Draw grid title.
+  fill("white");
+  textSize(18);
+  textAlign(CENTER, CENTER);
+  text("2D GRID", startX + 48, 85);
+  // Draw each cell in the 2D array.
+  for (let row = 0; row < roadGrid.length; row++) {
+    for (let col = 0; col < roadGrid[row].length; col++) {
+      if (roadGrid[row][col] === 1) {
+        fill(220, 45, 45);
+      } else {
+        fill(75);
+      }
+      stroke(255);
+      strokeWeight(1);
+      rect(
+        startX + col * cellW,
+        startY + row * cellH,
+        cellW,
+        cellH
+      );
+      // Display the cell value.
+      fill("white");
+      noStroke();
+      textSize(14);
+      text(
+        roadGrid[row][col],
+        startX + col * cellW + cellW / 2,
+        startY + row * cellH + cellH / 2
+      );
+    }
+  }
+  // Draw grid labels.
+  fill("white");
+  textSize(12);
+  text("0 = Empty", startX + 48, startY + 8 * cellH + 20);
+  text("1 = Occupied", startX + 48, startY + 8 * cellH + 40);
+}
