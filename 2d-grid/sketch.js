@@ -59,6 +59,7 @@ function draw() {
     drawGridInfo();
     updateDrawGrid();
     isLaneClear();
+    drawGridInfo();
   }
   else if (gameState === "gameover") {
     drawCars();
@@ -266,19 +267,6 @@ function mousePressed() {
   }
 }
 
-function drawGridInfo() {
-  fill('white');
-  textSize(14);
-  textAlign(LEFT, TOP);
-  for (let row = 0; row < roadGrid.length; row++) {
-    let rowText = "";
-    for (let col = 0; col < roadGrid[row].length; col++) {
-      rowText += roadGrid[row][col] + " ";
-    }
-    text(rowText, 470, 50 + row * 25);
-  }
-}
-
 function updateDrawGrid() {
   //reset all grid cells to 0
   for (let row = 0; row < roadGrid.length; row++) {
@@ -305,24 +293,6 @@ function updateDrawGrid() {
   }
 }
 
-function isLaneClear(col) {
-  for (let row = 0; row < 2; row++) {
-    if (roadGrid[row][col] === 1) {
-      return false;
-    }
-  }
-  return true;  
-}
-
-//clear all cells in the 2D array
-function resetRoadGrid() {
-  for (let row = 0; row < roadGrid.length; row++) {
-    for (let col = 0; col < roadGrid[row]; col++) {
-      roadGrid[row][col] = 0;
-    }
-  }
-}
-
 // Displays the 2D array as a visual grid.
 function drawGridInfo() {
   let startX = 465;
@@ -339,7 +309,8 @@ function drawGridInfo() {
     for (let col = 0; col < roadGrid[row].length; col++) {
       if (roadGrid[row][col] === 1) {
         fill(220, 45, 45);
-      } else {
+      }
+      else {
         fill(75);
       }
       stroke(255);
@@ -366,4 +337,13 @@ function drawGridInfo() {
   textSize(12);
   text("0 = Empty", startX + 48, startY + 8 * cellH + 20);
   text("1 = Occupied", startX + 48, startY + 8 * cellH + 40);
+}
+
+function isLaneClear(col) {
+  for (let row = 0; row < 2; row++) {
+    if (roadGrid[row][col] === 1) {
+      return false;
+    }
+  }
+  return true;  
 }
