@@ -1,7 +1,7 @@
 // window.seTimeout example
 // make something happen after some amount of time
 
-let message = "Coming soon...";
+let message = "Wait a second...";
 
 async function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -19,5 +19,5 @@ function draw() {
 }
 
 function newMessage() {
-  message = "it's here!!!";
+  message = "GOOD BOY!!!";
 }
