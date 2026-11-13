@@ -60,6 +60,7 @@ function draw() {
     updateDrawGrid();
     isLaneClear();
     drawGridInfo();
+    drawCarCount();
   }
   else if (gameState === "gameover") {
     drawCars();
@@ -346,4 +347,12 @@ function isLaneClear(col) {
     }
   }
   return true;  
+}
+
+function drawCarCount() {
+  let carCount = cars.length;
+  fill('white');
+  textSize(16);
+  textAlign(LEFT, TOP);
+  text("Cars on road: " + carCount, 20, 55);
 }
