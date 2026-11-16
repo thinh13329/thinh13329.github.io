@@ -5,6 +5,10 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+const CANVAS_WIDTH = 600;
+const CANVAS_HEIGHT = 600;
+const ROAD_LINE_GAP = 80;
+let gameState = "start";
 let player = {
   x: 300,
   y: 500,
@@ -14,16 +18,14 @@ let player = {
 };
 let cars = [];
 let spawnTimmer = 0;
-let gameState = "start";
 let score = 0;
 let roadOffSet = 0;
-const CANVAS_WIDTH = 600;
-const CANVAS_HEIGHT = 600;
+let carSpeed = 4;
+let spawnRate = 60;
 const ROAD_X = 150;
 const ROAD_WIDTH = 300;
 const PLAYER_MIN_X = 170;
 const PLAYER_MAX_X = 430;
-const ROAD_LINE_GAP = 80;
 const SPAWN_INTERVAL = 60;
 let roadGrid = [
   [0, 0, 0],
@@ -52,13 +54,13 @@ function draw() {
     movePlayer();
     moveCars();
     removeOffscreenCars();
+
+    updateDrawGrid();
     checkCollision();
+
     drawCars();
     drawPlayer();
     drawScore();
-    drawGridInfo();
-    updateDrawGrid();
-    isLaneClear();
     drawGridInfo();
     drawCarCount();
   }
@@ -147,7 +149,7 @@ function createCar() {
   let car = {
     x: laneX,
     y: -50,
-    speed: random(4, 6),
+    speed: random(carSpeed, carSpeed + 2),
     w: 40,
     h: 70
   };
@@ -232,6 +234,15 @@ function keyPressed() {
   }
 }
 
+function mousePressed() {
+  if (gameState === "start") {
+    gameState = "playing";
+  }
+  else if (gameState === "gameover") {
+    resetGame();
+  }
+}
+
 function resetGame() {
   cars = [];
   score = 0;
@@ -257,15 +268,6 @@ function drawStartScreen() {
   text("Avoid cars and earn points!", width / 2, height / 2 + 85);  
   textSize(24);  
   text("Click to Start", width / 2, height / 2 + 135);
-}
-
-function mousePressed() {
-  if (gameState === "start") {
-    gameState = "playing";
-  }
-  else if (gameState === "gameover") {
-    resetGame();
-  }
 }
 
 function updateDrawGrid() {
