@@ -234,15 +234,6 @@ function keyPressed() {
   }
 }
 
-function mousePressed() {
-  if (gameState === "start") {
-    gameState = "playing";
-  }
-  else if (gameState === "gameover") {
-    resetGame();
-  }
-}
-
 function resetGame() {
   cars = [];
   score = 0;
@@ -250,7 +241,16 @@ function resetGame() {
   player.x = 300;
   player.y = 500;
   gameState = "playing";
-  resetRoadGrid();
+  resetRoadGrid();  
+}
+
+function mousePressed() {
+  if (gameState === "start") {
+    gameState = "playing";
+  }
+  else if (gameState === "gameover") {
+    resetGame();
+  }
 }
 
 function drawStartScreen() {
