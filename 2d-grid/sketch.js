@@ -61,6 +61,7 @@ function draw() {
     drawCars();
     drawPlayer();
     drawScore();
+    carSpeed = 4 + floor(score / 5);
     drawGridInfo();
     drawCarCount();
   }
