@@ -45,6 +45,7 @@ async function setup() {
 function draw() {
   background(50, 140, 60);
   drawRoad();
+  drawGrass();
   if (gameState === "start") {
     drawStartScreen();
   }
@@ -54,16 +55,15 @@ function draw() {
     movePlayer();
     moveCars();
     removeOffscreenCars();
-
     updateDrawGrid();
     checkCollision();
-
     drawCars();
     drawPlayer();
     drawScore();
     carSpeed = 4 + floor(score / 5);
     drawGridInfo();
     drawCarCount();
+    drawLevel();
   }
   else if (gameState === "gameover") {
     drawCars();
@@ -182,9 +182,9 @@ function removeOffscreenCars() {
 function spawnCars() {
   spawnTimmer++;
   spawnRate = max(20, 60 - floor(score / 5) * 5);
-if (spawnTimmer > spawnRate) {
-  createCar();
-  spawnTimmer = 0;
+  if (spawnTimmer > spawnRate) {
+    createCar();
+    spawnTimmer = 0;
   }
 }
 
@@ -359,4 +359,29 @@ function drawCarCount() {
   textSize(16);
   textAlign(LEFT, TOP);
   text("Cars on road: " + carCount, 20, 55);
+}
+
+function drawLevel() {
+  let level = floor(score / 5) + 1;
+  fill('white');
+  textSize(18);
+  textAlign(LEFT, TOP);
+  text("level: " + level, 20, 85);
+}
+
+function drawGrass() {
+  noStroke();
+  //left grass
+  fill(45, 125, 50);
+  rect(0, 0, ROAD_X, CANVAS_HEIGHT);
+  //right grass
+  rect(ROAD_X + ROAD_WIDTH, 0, CANVAS_WIDTH - ROAD_X - ROAD_WIDTH, CANVAS_HEIGHT);
+  //grass decorations
+  fill(65, 155, 65);
+  for (let y = 20; y < CANVAS_HEIGHT; y+= 45) {
+    ellipse(40, y, 8, 5);
+    ellipse(90, y + 20, 8, 5);
+    ellipse(490, y + 10, 8, 5);
+    ellipse(550, y + 30, 8, 5);
+  }
 }
