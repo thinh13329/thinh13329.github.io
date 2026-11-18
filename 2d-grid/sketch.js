@@ -181,9 +181,10 @@ function removeOffscreenCars() {
 
 function spawnCars() {
   spawnTimmer++;
-  if (spawnTimmer >= 60) {
-    createCar();
-    spawnTimmer = 0;
+  spawnRate = max(20, 60 - floor(score / 5) * 5);
+if (spawnTimmer > spawnRate) {
+  createCar();
+  spawnTimmer = 0;
   }
 }
 
